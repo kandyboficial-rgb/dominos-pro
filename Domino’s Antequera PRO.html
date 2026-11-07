@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Domino’s Antequera PRO</title>
+<style>
+:root{--b:#006494;--r:#e31b23;--p:#1e293b;--bg:#0f172a;--t:#f8fafc;--m:#334155;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Trebuchet MS','Segoe UI',sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}body{background:var(--bg);color:var(--t);display:flex;flex-direction:column;overscroll-behavior:none}
+header{background:linear-gradient(90deg,var(--b) 50%,var(--r) 50%);padding:8px 12px;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
+header h1{font-size:17px;font-weight:900}.st{background:rgba(0,0,0,.5);padding:5px 12px;border-radius:20px;font-weight:700;display:flex;gap:10px;font-size:13px}
+main{flex:1;overflow:auto;padding:12px;-webkit-overflow-scrolling:touch}.hide{display:none!important}
+button{cursor:pointer;border:0;color:#fff;background:var(--b);padding:12px 16px;min-height:46px;border-radius:10px;font-weight:700;font-size:15px;touch-action:manipulation}
+button:active{filter:brightness(1.25)}button.red{background:var(--r)}button.grn{background:#16a34a}button:disabled{opacity:.4}button:focus-visible{outline:3px solid #fde047}
+#menu{display:flex;flex-direction:column;align-items:center;gap:20px;padding-top:3vh;text-align:center}
+#menu h2{font-size:clamp(26px,8vw,40px);font-weight:900}.grid{display:grid;grid-template-columns:1fr;gap:12px;width:100%;max-width:360px}
+.grid button{padding:18px;font-size:17px;border-radius:14px}
+.tabs{display:flex;gap:2px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;position:sticky;top:-12px;z-index:20;background:var(--bg);margin-left:-12px;margin-right:-12px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{border-radius:0;background:var(--m);color:#94a3b8;padding:10px 12px;font-size:13px;flex:1 0 auto;white-space:nowrap}.tabs button.on{background:var(--b);color:#fff;box-shadow:inset 0 -4px 0 var(--r)}
+.ticket{background:#fff;color:#111;border-left:6px solid var(--r);border-radius:8px;padding:18px;max-width:340px;font-family:'Courier New',monospace;display:flex;flex-direction:column;gap:10px}
+.ticket h3{border-bottom:2px dashed #000;padding-bottom:6px;text-align:center}.ticket .n{font-size:20px;font-weight:900;color:var(--b)}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;justify-content:center}
+.pz{width:min(430px,92vw);aspect-ratio:1;flex:none;cursor:crosshair;touch-action:manipulation}
+.panel{background:var(--p);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;width:min(380px,100%)}
+.panel h4{font-size:12px;color:#94a3b8;text-transform:uppercase;border-bottom:2px solid var(--m);padding-bottom:3px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{background:var(--m);padding:9px 10px;min-height:42px;border-radius:10px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;border:2px solid transparent;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.chip:active{background:#475569}.chip.sel{border-color:#fde047;background:#475569}.chip svg{width:26px;height:26px;flex:none}
+#msg{background:#0b0f19;border-radius:8px;padding:8px;font-size:13px;min-height:34px;color:#fde68a}#sm{font-size:13px;line-height:1.5;color:#cbd5e1}
+select{background:var(--m);color:#fff;border:0;padding:10px;min-height:44px;border-radius:10px;font-size:16px}
+.belt{background:var(--m);border:6px solid #475569;border-radius:18px;height:170px;position:relative;overflow:hidden;width:100%;max-width:760px}
+.belt .mouth{position:absolute;top:0;width:60px;height:100%;background:linear-gradient(90deg,#ef4444,#7f1d1d);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px}
+.belt .r{right:0}.bp{position:absolute;top:15px;width:130px;height:130px;left:10px}
+.bar{height:16px;background:#0b0f19;border-radius:8px;overflow:hidden;width:100%;max-width:760px;position:relative}.bar b{display:block;height:100%;width:0;background:#f59e0b}.bar u{position:absolute;left:55%;width:25%;top:0;bottom:0;background:rgba(34,197,94,.45)}
+.card{background:var(--p);border-radius:14px;padding:20px;width:min(560px,100%);border-top:8px solid var(--b);margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.big{font-size:54px;font-weight:900;text-align:center;color:#22c55e}.log{background:#090d16;border-radius:10px;padding:12px;max-height:260px;overflow:auto;font-size:14px;display:flex;flex-direction:column;gap:5px}
+.hb{display:flex;gap:12px;flex-wrap:wrap}.hn{display:flex;flex-direction:row;gap:6px;width:100%;overflow-x:auto;padding-bottom:6px}.hn button{background:var(--m);text-align:left;flex:none;white-space:nowrap}.hn button.on{background:var(--b)}
+.hv{flex:1;min-width:0;width:100%;background:var(--p);border-radius:12px;padding:16px;line-height:1.7}
+.opt{background:var(--m);text-align:left;border:2px solid transparent}.opt:active{border-color:var(--b)}
+details{background:#0b0f19;border-radius:8px;padding:8px 10px;font-size:14px;line-height:1.6}details summary{cursor:pointer;font-weight:700;color:#fde68a;min-height:30px}details details{margin-top:6px;background:var(--m)}details ul{padding-left:18px}details .n{font-size:16px;font-weight:900;margin:6px 0}
+#p1 .row{flex-direction:column;align-items:center}
+#p1 .pz,#p3 .pz{width:min(92vw,430px)}
+#p3 .pz{position:static;width:min(92vw,430px)}
+#p1 .panel,#p3 .panel{width:100%;max-width:520px}
+#p1 .panel .chips .chip{flex:1 1 calc(50% - 6px)}#p1 #c-tp .chip,#p1 #c-sl .chip{flex:1 1 calc(50% - 6px)}
+#p3 .panel button,#p1 .panel>.chips>button{flex:1 1 auto}
+@media(min-width:700px){.grid{grid-template-columns:repeat(2,1fr);max-width:540px}.hn{flex-direction:column;width:230px;max-height:70vh;overflow:auto}.hv{width:auto;min-width:260px}.tabs{margin-left:0;margin-right:0}#p1 .row{flex-direction:row;align-items:flex-start}#p1 .pz{width:min(430px,90vw);position:static;border-radius:0}#p1 .panel,#p3 .panel{width:min(380px,100%)}.belt{height:200px}.belt .mouth{width:90px;font-size:12px}.bp{top:30px}}
+</style></head><body>
+<header><h1>🍕 DOMINO’S ANTEQUERA PRO</h1><div class="st"><span id="tm" class="hide">⏱️ 90s</span><span id="sl">Nivel 1</span><span id="ss">Puntos 0</span></div></header>
+<main>
+<section id="menu"><h2>Simulador de entrenamiento</h2>
+<div class="grid"><button onclick="go('learn')">📖 Manual de recetas</button><button class="red" onclick="go('play')">🍕 Iniciar turno de cocina</button><button class="red" onclick="go('exam')">📝 Examen teórico</button><button class="grn" onclick="go('prac')">🧑‍🍳 Examen práctico</button><button onclick="go('timer')">⏱️ Contrarreloj (90 s)</button></div></section>
+<section id="bar" class="hide" style="margin-bottom:12px"><button onclick="home()">← Menú principal</button></section>
+<section id="learn" class="hide"><div class="hb"><div class="hn" id="ln"></div><div class="hv" id="lv"></div></div></section>
+<section id="exam" class="hide"><div class="card" id="ex"></div></section>
+<section id="play" class="hide">
+<div class="tabs" id="tabs"></div>
+<div id="p0"><div class="ticket"><h3>DOMINO’S ANTEQUERA</h3><div id="tk"></div></div><br><button onclick="tab(1)">Comenzar montaje ➡️</button></div>
+<div id="p1" class="hide"><details id="ord" style="margin-bottom:12px"><summary>📋 Ver ingredientes de la pizza</summary><div id="od"></div></details><div class="row">
+<div class="pz" id="pz" onmousemove="ghost(event)" onmouseleave="ghost()" onclick="clk(event)"></div>
+<div class="panel"><h4>Masa</h4><select id="dg" onchange="S.dough=this.value;draw()"><option>Original</option><option>Madrizzima</option><option>Croissantizzima</option><option>Finísima</option><option>Veggi Thin Crust</option><option>Mozzarella Roll</option><option>Cabra Roll</option><option>Gluten Free</option></select>
+<h4>Salsa base</h4><div class="chips" id="c-sa"></div><h4>Queso base</h4><div class="chips" id="c-ch"></div><h4>Borde</h4><div class="chips" id="c-rim"></div>
+<h4>Ingredientes · pulsa = 1 puñado (35 g) · pepperoni y york = 16 o 32 uds.</h4><div id="c-tp"></div>
+
+<div id="msg">Añade ingredientes a la pizza.</div><div id="sm"></div>
+<h4>Salsa por encima (antes del horno)</h4><div class="chips" id="c-ex"></div>
+<div class="chips"><button class="red" onclick="undo()">↩ Deshacer</button><button class="red" onclick="reset()">Limpiar mesa</button><button class="grn" onclick="tab(2)">Al horno ➡️</button></div></div></div></div>
+<div id="p2" class="hide" style="flex-direction:column;align-items:center;gap:14px"><div class="belt"><div class="mouth">ENTRADA</div><div class="mouth r">SALIDA</div><div class="bp" id="bp"></div></div>
+<div class="bar"><b id="bb"></b><u></u></div><div id="bl">Estado: cruda. Saca la pizza dentro de la zona verde.</div>
+<div class="chips"><button id="bg" onclick="bake()">🔥 Hornear en cinta</button><button id="bx" class="red" onclick="pull()" disabled>Sacar pizza</button></div></div>
+<div id="p3" class="hide"><div class="row"><div class="pz" id="pc" style="cursor:default"></div><div class="panel"><h4>Porciones</h4><div class="chips"><button onclick="cut(4)">4 porciones</button><button onclick="cut(8)">8 porciones</button><button class="red" onclick="cut(0)">Sin cortar</button></div><button class="grn" onclick="tab(4)">Enviar a entrega 📦</button></div></div></div>
+<div id="p4" class="hide"><div class="card"><h3 id="en"></h3><div class="big" id="sc">0%</div><div class="log" id="lg"></div><button id="nx" onclick="next()">Siguiente pedido ➡️</button></div></div>
+</section></main>
+<script>
+const R={"Full BBQ":["BBQ Original","BBQ Original por encima",["Mozzarella Normal"],{"Bacon":1,"Pollo":1}],
+"Tony Pepperoni":["Tomate","",["Mozzarella Extra"],{"Pepperoni":32}],
+"Carbonara":["Crema Fresca","",["Mozzarella Normal"],{"Bacon":1,"Champiñón":1,"Cebolla":1}],
+"Cuatro Quesos":["Tomate","",["Mozzarella Normal","Cheddar","Emmental","Gorgonzola"],{}],
+"Barbacoa":["BBQ Original","",["Mozzarella Normal"],{"Carne":1,"Cebolla":1,"Bacon":1,"Maíz":1}],
+"Hawaiana Plus":["Tomate","",["Mozzarella Extra"],{"York":32,"Piña":1}],
+"Pollo a la Parrilla":["Tomate","",["Mozzarella Normal"],{"Pollo":2,"Cebolla":1,"Champiñón":1,"Maíz":1}],
+"Campiña":["Tomate","",["Mozzarella Extra"],{"Champiñón":1,"Pimiento verde":1,"Cebolla":1,"Aceitunas negras":1,"Tomate natural":1}],
+"Pecado Carnal":["Tomate","",["Mozzarella Extra"],{"Carne":1,"Bacon":1,"Pepperoni":12,"York":12}],
+"Manchega":["Crema Fresca","",["Mozzarella Normal"],{"Queso manchego":1,"Parmesano":1}],
+"Gorgonzola":["Crema Fresca","",["Mozzarella Normal"],{"Parmesano":1,"Gorgonzola":1}],
+"Raclette":["Crema Fresca","",["Mozzarella Normal","Raclette"],{"Cebolla":1,"Bacon crispy":1,"Patata":1}],
+"Salmón Ahumado y Aguacate":["Crema Fresca","",["Mozzarella Normal"],{"Salmón ahumado":1,"Aguacate":1,"Eneldo":1,"Sésamo negro":1}],
+"Trufa y Panceta Ahumada":["Crema Fresca","Trufa negra por encima",["Mozzarella Normal"],{"Champiñón":1,"Panceta ahumada":1}],
+"Extravaganzza":["Tomate","",["Mozzarella Normal"],{"Carne":1,"Pepperoni":10,"York":10,"Bacon":1,"Cebolla":1,"Pimiento verde":1,"Champiñón":1,"Aceitunas negras":1}],
+"Parmesana Carbonara":["Crema Fresca","",["Mozzarella Normal","Cheddar","Emmental","Parmesano"],{"Cebolla":1,"Bacon":1,"Bacon crispy":1}],
+"Cremozza Estilo Bourbon":["Crema Fresca","Bourbon por encima",["Mozzarella Normal"],{"Bacon":1,"Cebolla":1,"Pollo":1}],
+"Cabramelizada":["Crema Fresca","",["Mozzarella Normal","Queso de cabra"],{"Cebolla caramelizada":1}],
+"Buffalo Chicken":["BBQ Original","",["Mozzarella Normal"],{"Pollo Buffalo":1,"Bacon crispy":1,"Cebolla caramelizada":1},1],
+"Seis Quesos":["Crema Fresca","",["Mozzarella Normal","Cheddar","Emmental","Parmesano","Gorgonzola","Queso de cabra"],{}],
+"Texas BBQ Crispy":["BBQ Texas","BBQ Texas por encima",["Mozzarella Normal"],{"Bacon crispy":1,"Bacon":1,"Pollo":1,"Carne":1},1],
+"Veggiña":["Tomate","",["VeggiCheese Violife"],{"Champiñón":1,"Pimiento verde":1,"Cebolla":1,"Aceitunas negras":1,"Tomate natural":1}],
+"Varbacoa Heura":["BBQ Original","",["VeggiCheese Violife"],{"VeggiChicken Heura":1,"Cebolla":1,"Maíz":1}],
+"Celíaca Pollo y Bacon":["BBQ Original","",["Mozzarella Normal"],{"Pollo celíaca":1,"Bacon celíaca":1},0,1],
+"Celíaca Jamón y Bacon":["Tomate","",["Mozzarella Normal"],{"Jamón celíaca":1,"Bacon celíaca":1},0,1],
+"Celíaca Tres Ingredientes":["Tomate","",["Mozzarella Normal"],{"Jamón celíaca":1,"Pollo celíaca":1,"Bacon celíaca":1},0,1]};
+const SL=new Set(['Pepperoni','York']);const GL={"Pollo celíaca":"50 g","Bacon celíaca":"40 g","Jamón celíaca":"12 lonchas"};
+const TS={
+"Pepperoni":'<circle r="5.4" fill="#b8301c" stroke="#7d1a0d" stroke-width=".5"/><circle r="4.4" fill="#cf4128"/><circle cx="-1.6" cy="-1.2" r=".7" fill="#8f1f10"/><circle cx="1.8" cy=".8" r=".9" fill="#8f1f10"/><circle cx="-.4" cy="2.4" r=".6" fill="#e0654b"/><circle cx="1" cy="-2.6" r=".5" fill="#8f1f10"/><path d="M-3.5-3.2A5 5 0 0 1 1-4.8" stroke="#ee8a70" stroke-width=".6" fill="none" opacity=".7"/>',
+"York":'<path d="M-4.5-4Q0-5 4.6-3.8Q5.2 0 4.2 4.4Q-.5 5.2-4.8 3.9Q-5.4 0-4.5-4Z" fill="#f2a5a5" stroke="#d97b7b" stroke-width=".5"/><path d="M-3-1Q0 0 3-1" stroke="#fac9c9" stroke-width=".7" fill="none"/>',
+"Bacon":'<rect x="-4.5" y="-1.4" width="9" height="2.8" rx=".8" fill="#a8312c"/><rect x="-4.5" y="-.5" width="9" height=".9" fill="#f0b9a8"/><rect x="-4.5" y="-1.4" width="9" height=".5" fill="#7e1f1b" opacity=".6"/>',
+"Bacon crispy":'<rect x="-1.8" y="-.8" width="3.6" height="1.6" rx=".5" fill="#6b2416"/><rect x="-1.2" y="-.3" width="2" height=".5" fill="#a4582f"/>',
+"Pollo":'<path d="M-2.8-1.6Q0-3 3-1.4Q3.4 1.6 1 2.6Q-2.6 2.8-3-.2Z" fill="#f3dfb8" stroke="#cf9f5c" stroke-width=".6"/><path d="M-1.4-.6L1.6 .4" stroke="#b8803a" stroke-width=".5"/>',
+"Pollo Buffalo":'<path d="M-2.8-1.6Q0-3 3-1.4Q3.4 1.6 1 2.6Q-2.6 2.8-3-.2Z" fill="#e68b3f" stroke="#b9561d" stroke-width=".6"/><path d="M-1.4-.6L1.6 .4" stroke="#8a3a10" stroke-width=".5"/>',
+"Carne":'<circle r="1.5" fill="#5a3826"/><circle cx=".5" cy="-.4" r=".6" fill="#7a5238"/>',
+"Champiñón":'<path d="M-3.4 .8Q-3.4-3 0-3Q3.4-3 3.4 .8Z" fill="#f1e9da" stroke="#b9a98a" stroke-width=".5"/><rect x="-1" y=".8" width="2" height="2.6" rx=".5" fill="#e6dcc7" stroke="#b9a98a" stroke-width=".4"/>',
+"Cebolla":'<path d="M-3.5 1Q0-3.4 3.5 1" fill="none" stroke="#f3e7cf" stroke-width="1" stroke-linecap="round"/><path d="M-2.6 1.2Q0-2 2.6 1.2" fill="none" stroke="#e9d7b3" stroke-width=".5"/>',
+"Cebolla caramelizada":'<path d="M-3.5 1Q0-3.4 3.5 1" fill="none" stroke="#a85a1c" stroke-width="1" stroke-linecap="round"/><path d="M-2.6 1.2Q0-2 2.6 1.2" fill="none" stroke="#7a3a0e" stroke-width=".5"/>',
+"Pimiento verde":'<path d="M-3.4 1Q0-2.4 3.4 1" fill="none" stroke="#2f9e44" stroke-width="1.5" stroke-linecap="round"/><path d="M-2.6 .3Q0-2 2.6 .3" fill="none" stroke="#69db7c" stroke-width=".4"/>',
+"Maíz":'<ellipse rx="1" ry="1.35" fill="#ffd43b" stroke="#e0a800" stroke-width=".25"/><circle cx="-.3" cy="-.4" r=".3" fill="#fff3a8"/>',
+"Piña":'<path d="M-3 2.4L-2.4-2.6Q0-3.4 2.8-2.2L3 2.2Z" fill="#ffe066" stroke="#e0b100" stroke-width=".5"/><path d="M-1.2-1.4L-.9 1.6M1-1.6L1.3 1.4" stroke="#f7c800" stroke-width=".35"/>',
+"Aceitunas negras":'<circle r="1.7" fill="none" stroke="#1a1a1a" stroke-width="1.1"/><circle r="2.25" fill="none" stroke="#4a4a4a" stroke-width=".25"/>',
+"Tomate natural":'<circle r="3.1" fill="#e03131" stroke="#b02323" stroke-width=".4"/><circle r="2.1" fill="#f06060"/><path d="M0-1.7V1.7M-1.7 0H1.7" stroke="#ffc9c9" stroke-width=".3"/><circle cx="1" cy="1" r=".3" fill="#ffe3a3"/><circle cx="-1" cy="-.8" r=".3" fill="#ffe3a3"/>',
+"Patata":'<ellipse rx="3.2" ry="2.4" fill="#f6e7a6" stroke="#d6bc5a" stroke-width=".4"/><ellipse rx="1.8" ry="1.2" fill="#fdf4c6" opacity=".7"/>',
+"Queso manchego":'<path d="M-4 1.4L4-1.6 4 .2-4 2.4Z" fill="#f7edbb" stroke="#d9c777" stroke-width=".4"/>',
+"Parmesano":'<path d="M-3.4 .8Q0-1.4 3.6-.6L3.2 .5Q0-.2-3.4 1.6Z" fill="#fffbe6" stroke="#e7dca0" stroke-width=".3"/>',
+"Gorgonzola":'<path d="M-2.2-1.4L1.4-2 2.4 .8-.8 2.2-2.6 .6Z" fill="#ecf0d6" stroke="#c9d1a6" stroke-width=".3"/><circle cx="-.4" cy=".2" r=".45" fill="#5f9a8a"/><circle cx="1" cy="-.6" r=".35" fill="#6aa89a"/>',
+"Queso de cabra":'<circle r="2.4" fill="#fcfcf6" stroke="#dcdcd0" stroke-width=".4"/><circle cx="-.6" cy="-.6" r=".7" fill="#fff"/>',
+"Salmón ahumado":'<path d="M-5 .8Q-2.5-2.6 0 .4T5-.6Q5.4 1.8 2.6 2Q0 2-1.2 .6-3 2.4-5 .8Z" fill="#f4845f" stroke="#d96a45" stroke-width=".4"/><path d="M-3 .2Q-1.5-.8 0 .6" stroke="#ffc3a8" stroke-width=".5" fill="none"/>',
+"Aguacate":'<path d="M-3.2 .6Q0 3.8 3.2 .6Q0-1.4-3.2 .6Z" fill="#8ac926" stroke="#4d7c0f" stroke-width=".5"/><path d="M-2.4 .6Q0 2.4 2.4 .6Q0-.4-2.4 .6Z" fill="#d8f5a2"/>',
+"VeggiChicken Heura":'<path d="M-2.8-1.8L2.6-2.2 3 1.8-2.6 2.4Z" fill="#b9793a" stroke="#7e4a1b" stroke-width=".5"/><path d="M-1.2-1L1.4 1" stroke="#8a5424" stroke-width=".4"/>',
+"Panceta ahumada":'<rect x="-2.2" y="-1.8" width="4.4" height="3.6" rx=".6" fill="#c0524a" stroke="#8d2e28" stroke-width=".4"/><rect x="-2.2" y="-.3" width="4.4" height=".8" fill="#f4cfc0"/>',
+"Cheddar":'<rect x="-2" y="-.45" width="4" height=".9" rx=".4" fill="#f59f00"/><rect x="-1.2" y="-.2" width="2" height=".3" fill="#ffc640"/>',
+"Emmental":'<rect x="-2" y="-.45" width="4" height=".9" rx=".4" fill="#ffe58a"/><rect x="-1.2" y="-.2" width="2" height=".3" fill="#fff2b8"/>',
+"Raclette":'<rect x="-2" y="-.45" width="4" height=".9" rx=".4" fill="#fff1bd"/><rect x="-1.2" y="-.2" width="2" height=".3" fill="#fffaf0"/>',
+"Eneldo":'<path d="M0 1.6V-1.6M0-.6L-1.2-1.6M0-.6L1.2-1.6M0 .4L-1.2-.6M0 .4L1.2-.6" stroke="#2f9e44" stroke-width=".35" stroke-linecap="round" fill="none"/>',
+"Sésamo negro":'<ellipse rx=".7" ry=".4" fill="#0d0d0d"/>',"Atún":'<path d="M-3-1.5Q0-3 3-1.2Q3.6 1.4 .8 2.4Q-2.8 2.6-3.2 0Z" fill="#d9a38c" stroke="#b9745b" stroke-width=".5"/><path d="M-1.6-.6L1.4 1M-.8-1.4L2 .2" stroke="#e8bda9" stroke-width=".4"/>'};
+const HF={"Bacon":8,"Bacon crispy":16,"Pollo":9,"Pollo Buffalo":9,"Carne":24,"Champiñón":12,"Cebolla":18,"Cebolla caramelizada":16,"Pimiento verde":14,"Maíz":40,"Piña":11,"Aceitunas negras":14,"Tomate natural":9,"Patata":10,"Queso manchego":8,"Parmesano":14,"Gorgonzola":13,"Queso de cabra":8,"Salmón ahumado":7,"Aguacate":8,"VeggiChicken Heura":9,"Panceta ahumada":9,"Cheddar":18,"Emmental":14,"Raclette":12,"Eneldo":22,"Sésamo negro":45,"Atún":10,"Pollo celíaca":13,"Bacon celíaca":9,"Jamón celíaca":12};
+const DOUGH={"Original":"#e8b169","Madrizzima":"#dba95a","Croissantizzima":"#eebb58","Finísima":"#f0d68a","Veggi Thin Crust":"#cdb680","Mozzarella Roll":"#e8b169","Cabra Roll":"#e8b169","Gluten Free":"#e3c98f"};
+const SAUCE={"Tomate":["#d63a2a","#a8221a"],"BBQ Original":["#6a2a16","#471a0c"],"BBQ Texas":["#3b180c","#220d06"],"Crema Fresca":["#fffbe9","#f1e9c4"]};
+const CHEESE={"Mozzarella Normal":"#fbefb4","Mozzarella Extra":"#f8e592","VeggiCheese Violife":"#f3f6e8"};
+const EXTRA=["Trufa negra por encima","Bourbon por encima","BBQ Original por encima","BBQ Texas por encima"],EXC={Trufa:"#15100d",Bourbon:"#6b3511","BBQ Original":"#4a1c10","BBQ Texas":"#25100a"};
+const $=i=>document.getElementById(i);let S,cur,sel=null,sc=0,lv=1,mode,mt,ticks=0,tint,left=90,rep=[],UID=0,AID=0;
+try{sc=+localStorage.getItem('dpa_s')||0;lv=+localStorage.getItem('dpa_l')||1}catch(e){}
+function stats(){$('sl').textContent='Nivel '+lv;$('ss').textContent='Puntos '+sc;try{localStorage.setItem('dpa_s',sc);localStorage.setItem('dpa_l',lv)}catch(e){}}
+function show(id){['menu','learn','exam','play'].forEach(x=>$(x).classList.toggle('hide',x!=id));$('bar').classList.toggle('hide',id=='menu')}
+function home(){clearInterval(mt);clearInterval(tint);$('tm').classList.add('hide');show('menu')}
+function go(m){mode=m;PR=null;stats();if(m=='learn'){show('learn');lrn(Object.keys(R)[0])}else if(m=='exam'){show('exam');ask()}else{show('play');$('tm').classList.toggle('hide',m!='timer');if(m=='timer'){left=90;$('tm').textContent='⏱️ 90s';clearInterval(mt);mt=setInterval(()=>{left--;$('tm').textContent='⏱️ '+left+'s';if(left<=0){clearInterval(mt);alert('¡Tiempo agotado! Puntos: '+sc);home()}},1000)}if(m=='prac'){PR={n:0,res:[],seq:Object.keys(R).sort(()=>Math.random()-.5).slice(0,5)}}order()}}
+let PR=null;const fmt=(k,v)=>GL[k]?(v>1?v+'×':'')+GL[k]:SL.has(k)?v+' uds.':v+(v>1?' puñados':' puñado');
+Object.keys(R).forEach(n=>{let b=document.createElement('button');b.textContent=n;b.onclick=()=>lrn(n);$('ln').append(b)});
+function lrn(n){[...$('ln').children].forEach(b=>b.classList.toggle('on',b.textContent==n));let[s,x,c,t,rm]=R[n];
+let l=Object.keys(t).map(k=>`<li>${k}: <b>${fmt(k,t[k])}</b></li>`).join('')+c.slice(1).map(q=>`<li>${q}: <b>1 puñado</b></li>`).join('');
+$('lv').innerHTML=`<h2>Receta: ${n}</h2><p><b>Salsa:</b> ${s}</p>${x?`<p><b>Por encima, antes del horno:</b> ${x}</p>`:''}<p><b>Queso base:</b> ${c[0]}</p>${rm?'<p><b>Borde:</b> cheddar rallado sobre el borde</p>':''}${R[n][5]?'<p><b>Masa:</b> Gluten Free (base de cartón redondo que sobresale 1–2 dedos)</p>':''}<h3>Ingredientes</h3><ul>${l||'<li>Solo base</li>'}</ul><p style="font-size:12px;color:#94a3b8">1 puñado = 35 g aprox. Pepperoni y york se cuentan por unidades.</p>`}
+function ask(){let ks=Object.keys(R),n=ks[Math.random()*ks.length|0],d=R[n],ty=Math.random()*3|0,q,ok,op;
+if(ty==0){q=`¿Qué salsa base lleva la “${n}”?`;ok=d[0];op=Object.keys(SAUCE)}
+else if(ty==1){q=`¿Qué queso base lleva la “${n}”?`;ok=d[2][0];op=Object.keys(CHEESE)}
+else{let k=Object.keys(d[3]);if(!k.length)return ask();let v=d[3][k[0]];q=`¿Qué cantidad de ${k[0]} lleva la “${n}”?`;ok=fmt(k[0],v);op=GL[k[0]]?Object.values(GL).concat(['65 g']):SL.has(k[0])?[ok,'8 uds.','12 uds.','16 uds.','32 uds.']:['1 puñado','2 puñados','3 puñados']}
+op=[...new Set(op)].filter(o=>o!=ok).sort(()=>Math.random()-.5).slice(0,3);op.push(ok);op.sort(()=>Math.random()-.5);
+$('ex').innerHTML=`<h3>${q}</h3>`;op.forEach(o=>{let b=document.createElement('button');b.className='opt';b.textContent=o;b.onclick=()=>{if(o==ok){sc+=100;alert('¡Correcto! +100')}else alert('Incorrecto. Era: '+ok);stats();ask()};$('ex').append(b)})}
+function sd(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function pizzaSVG(P,o={}){let u=++UID,rn=sd(11),bk=o.bk||0,g='',dc=DOUGH[P.dough],ex=P.extra,hole=(r)=>{let a=rn()*6.283,d=Math.sqrt(rn())*r;return[50+Math.cos(a)*d,50+Math.sin(a)*d]};
+g+=`<defs><radialGradient id="c${u}"><stop offset=".72" stop-color="${dc}"/><stop offset=".92" stop-color="#c98540"/><stop offset="1" stop-color="#9a5a22"/></radialGradient>`
++`<radialGradient id="s${u}"><stop offset="0" stop-color="${P.sauce?SAUCE[P.sauce][0]:'#000'}"/><stop offset="1" stop-color="${P.sauce?SAUCE[P.sauce][1]:'#000'}"/></radialGradient>`
++`<filter id="r${u}" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence baseFrequency=".07" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5"/></filter>`
++`<filter id="d${u}"><feDropShadow dx=".35" dy=".6" stdDeviation=".45" flood-opacity=".5"/></filter><filter id="b${u}"><feGaussianBlur stdDeviation="1.6"/></filter></defs>`;
+if(P.dough=='Gluten Free'){g+=`<circle cx="50" cy="52" r="49.5" fill="#000" opacity=".35" filter="url(#b${u})"/><circle cx="50" cy="50" r="49.5" fill="#cfae74" stroke="#9c7a43" stroke-width=".8"/>`;for(let r=43.5;r<49;r+=1.4)g+=`<circle cx="50" cy="50" r="${r}" fill="none" stroke="#b5905a" stroke-opacity=".6" stroke-width=".35"/>`;g+='<g transform="translate(50 50) scale(.84) translate(-50 -50)">'}g+=`<circle cx="50" cy="52" r="49.5" fill="#000" opacity=".4" filter="url(#b${u})"/><circle cx="50" cy="50" r="49.5" fill="url(#c${u})" stroke="#8a4f1f" stroke-width=".6"/>`;
+for(let i=0;i<90;i++){let a=rn()*6.283,r=43+rn()*5.5;g+=`<circle cx="${50+Math.cos(a)*r}" cy="${50+Math.sin(a)*r}" r="${.3+rn()*.7}" fill="#8c531d" opacity=".28"/>`}
+g+=`<circle cx="50" cy="50" r="46" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="3"/>`;
+if(/Roll/.test(P.dough))g+=`<circle cx="50" cy="50" r="45.3" fill="none" stroke="#fff3c4" stroke-opacity=".55" stroke-width="1.1" stroke-dasharray="1.4 1.8"/>`;
+g+=`<circle cx="50" cy="50" r="49.5" fill="#5c2c0a" opacity="${[0,.06,.2,.6][bk]}"/>`;
+if(P.sauce)g+=`<circle cx="50" cy="50" r="40.5" fill="url(#s${u})" filter="url(#r${u})"/>`;
+if(P.cheese){g+=`<g filter="url(#r${u})"><circle cx="50" cy="50" r="38.8" fill="${CHEESE[P.cheese]}" opacity=".97"/>`;
+for(let i=0;i<50;i++){let[x,y]=hole(37);g+=`<circle cx="${x}" cy="${y}" r="${1.6+rn()*3.6}" fill="${i%3?'#fffdf0':'#f0bf4a'}" opacity="${i%3?.55:.22}"/>`}g+='</g>'}
+if(bk&&(P.cheese||P.sauce)){for(let i=0;i<26;i++){let[x,y]=hole(37);g+=`<circle cx="${x}" cy="${y}" r="${1.6+rn()*3.2}" fill="${bk==3?'#2a1507':'#b8741f'}" opacity="${[0,.22,.4,.8][bk]}"/>`}}
+if(P.rim){for(let i=0;i<80;i++){let a=i/80*6.283+rn()*.05,r=44.5+rn()*3.4;g+=`<rect x="-1.4" y="-.4" width="2.8" height=".8" rx=".4" fill="${i%2?'#f6a31a':'#ffcf5a'}" transform="translate(${50+Math.cos(a)*r} ${50+Math.sin(a)*r}) rotate(${a*57.3+90+rn()*40-20})"/>`}}
+g+=`<g filter="url(#d${u})">`+P.tops.map(p=>`<g transform="translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.r}) scale(${p.k.toFixed(2)})">${TS[p.n]}</g>`).join('')+'</g>';
+if(ex){let c=EXC[Object.keys(EXC).find(k=>ex.startsWith(k))];for(let r=6;r<=36;r+=6)g+=`<circle cx="50" cy="50" r="${r}" fill="none" stroke="${c}" stroke-width="1.2" opacity=".92"/>`}
+if(o.cuts){let L=[[50,0,50,100],[0,50,100,50]];if(o.cuts==8)L.push([14.6,14.6,85.4,85.4],[85.4,14.6,14.6,85.4]);g+=L.map(l=>`<line x1="${l[0]}" y1="${l[1]}" x2="${l[2]}" y2="${l[3]}" stroke="#000" stroke-opacity=".4" stroke-width="1.8"/><line x1="${l[0]}" y1="${l[1]}" x2="${l[2]}" y2="${l[3]}" stroke="#f1ede0" stroke-opacity=".75" stroke-width=".7"/>`).join('')}
+if(P.dough=='Gluten Free')g+='</g>';if(o.ghost)g+='<g id="gh" opacity=".6" pointer-events="none"></g>';
+return`<svg viewBox="0 0 100 100" style="width:100%;height:100%;display:block;overflow:visible">${g}</svg>`}
+const TN=['1. Pedidos','2. Preparación','3. Horno','4. Corte','5. Entrega'];
+TN.forEach((t,i)=>{let b=document.createElement('button');b.textContent=t;b.onclick=()=>tab(i);$('tabs').append(b)});
+function tab(i){if(i==4)grade();[0,1,2,3,4].forEach(k=>{$('p'+k).classList.toggle('hide',k!=i);$('tabs').children[k].classList.toggle('on',k==i)});$('p2').style.display=i==2?'flex':'';if(i==1){draw();ordInfo()}if(i==3)cutDraw();$('tabs').children[i].scrollIntoView({inline:'center',block:'nearest'});document.querySelector('main').scrollTop=0}
+function fresh(){S={dough:'Original',sauce:'',extra:'',cheese:'',rim:0,tops:[],hf:{},log:[],bake:0,cuts:0};sel=null;$('dg').value='Original';chips();draw();$('bp').innerHTML='';$('bp').style.left='10px';$('bp').style.filter='';$('bl').textContent='Estado: cruda. Saca la pizza dentro de la zona verde.';$('bb').style.width='0';$('bg').disabled=false}
+function order(){let ks=Object.keys(R);cur=PR?PR.seq[PR.n]:rep.length&&Math.random()>.5?rep[0]:ks[Math.random()*ks.length|0];fresh();
+$('tk').innerHTML=`<div><b>PEDIDO #${100+Math.random()*899|0}</b></div><div class="n">🍕 ${cur}</div><div style="border-top:1px dashed #000;padding-top:6px;font-size:12px">${PR?'EXAMEN PRÁCTICO · pizza '+(PR.n+1)+' de 5. Sin ayudas: hazla de memoria, con salsa, queso, ingredientes, horno y corte. 1 puñado = 35 g.':(rep.includes(cur)?'⚠️ MODO REPASO: ':'')+'Sigue la receta del manual. 1 puñado = 35 g.'+(R[cur][5]?' 🌾 SIN GLUTEN: usa la masa Gluten Free.':'')}</div>`;tab(0)}
+function next(){if(PR&&PR.done){go('prac');return}if(PR){PR.n++;if(PR.n>=5){final();return}}order()}
+function final(){let a=PR.res,avg=Math.round(a.reduce((s,r)=>s+r.p,0)/a.length),pass=avg>=75;if(pass){sc+=avg;if(sc>lv*800)lv++;stats()}
+$('en').textContent='Resultado del examen práctico';$('sc').textContent=avg+'%';$('sc').style.color=pass?'#22c55e':'#ef4444';
+$('lg').innerHTML=`<div><b>${pass?'🎓 APROBADO':'❌ SUSPENSO'}</b> (mínimo 75% de media)</div>`+a.map(r=>`<div>${r.p>=75?'✔️':'❌'} ${r.n}: ${r.p}%</div>`).join('');$('nx').textContent='Repetir examen';PR.done=1}
+function mk(id,items,fn,ic){let c=$(id);c.innerHTML='';items.forEach(n=>{let e=document.createElement('div');e.className='chip';e.dataset.n=n;if(ic)e.innerHTML=`<svg viewBox="-6 -6 12 12">${TS[n]}</svg>`;e.append(n);e.onclick=()=>fn(n);c.append(e)})}
+function chips(){mk('c-sa',Object.keys(SAUCE),n=>{S.sauce=n;draw()});mk('c-ch',Object.keys(CHEESE),n=>{S.cheese=n;draw()});mk('c-rim',['Normal','Cheddar rallado en el borde'],n=>{S.rim=n=='Normal'?0:1;draw()});
+mk('c-ex',['Ninguna',...EXTRA],n=>{S.extra=n=='Ninguna'?'':n;draw()});
+const GR=[['🥩 Carnes y embutidos',['Pepperoni ×16','Pepperoni ×32','York ×16','York ×32','Bacon','Bacon crispy','Panceta ahumada','Pollo','Pollo Buffalo','Carne']],['🥬 Verduras y fruta',['Champiñón','Cebolla','Cebolla caramelizada','Pimiento verde','Maíz','Aceitunas negras','Tomate natural','Patata','Aguacate','Piña','VeggiChicken Heura']],['🧀 Quesos',['Queso manchego','Parmesano','Gorgonzola','Queso de cabra','Cheddar','Emmental','Raclette']],['🐟 Pescado y toques finales',['Salmón ahumado','Atún','Eneldo','Sésamo negro']],['🌾 Celíaca · Pollo 50 g · Bacon 40 g · Jamón 12 lonchas',['Pollo celíaca','Bacon celíaca','Jamón celíaca']]];['Pepperoni','York'].forEach(b=>[16,32].forEach(q=>TS[b+' ×'+q]=TS[b]));TS['Pollo celíaca']=TS.Pollo;TS['Bacon celíaca']=TS.Bacon;TS['Jamón celíaca']=TS.York;let t=$('c-tp');t.innerHTML='';GR.forEach(([h,l],i)=>{let d=document.createElement('details');d.open=true;d.style.marginBottom='6px';d.innerHTML=`<summary>${h}</summary>`;let c=document.createElement('div');c.className='chips';c.id='cg'+i;c.style.marginTop='8px';d.append(c);t.append(d);mk('cg'+i,l,n=>{let m=n.match(/^(Pepperoni|York) ×(\d+)$/);m?addHand(m[1],+m[2]):addHand(n)},1)})}
+function msg(t){$('msg').textContent=t}
+function draw(){$('pz').innerHTML=pizzaSVG(S,{ghost:1});
+document.querySelectorAll('#c-sa .chip,#c-ex .chip,#c-ch .chip,#c-rim .chip,#c-sl .chip').forEach(e=>{let n=e.dataset.n,p=e.parentNode.id;e.classList.toggle('sel',(p=='c-sa'&&n==S.sauce)||(p=='c-ex'&&n==(S.extra||'Ninguna'))||(p=='c-ch'&&n==S.cheese)||(p=='c-rim'&&n==(S.rim?'Cheddar rallado en el borde':'Normal'))||(p=='c-sl'&&n==sel))});
+let a=Object.keys(S.hf).filter(k=>S.hf[k]).map(k=>GL[k]?`${k}: ${S.hf[k]>1?S.hf[k]+'×':''}${GL[k]}`:`${k}: ${S.hf[k]} puñado${S.hf[k]>1?'s':''} (${S.hf[k]*35} g)`),b=[...SL].map(k=>[k,S.tops.filter(p=>p.n==k).length]).filter(x=>x[1]).map(x=>`${x[0]}: ${x[1]} uds.`);$('sm').innerHTML=[...b,...a].join('<br>')}
+let OO=false;function ordInfo(){let d=$('ord');d.style.display=PR?'none':'';if(PR)return;if(ordInfo.c!=cur){d.open=false;ordInfo.c=cur}let[s,x,c,t,rm]=R[cur];
+let l=Object.keys(t).map(k=>`<li>${k}: <b>${fmt(k,t[k])}</b></li>`).join('')+c.slice(1).map(q=>`<li>${q}: <b>1 puñado</b></li>`).join('');
+$('od').innerHTML=`<div class="n">🍕 ${cur}</div><div><p><b>Salsa:</b> ${s}</p>${x?`<p><b>Por encima, antes del horno:</b> ${x}</p>`:''}<p><b>Queso base:</b> ${c[0]}</p>${rm?'<p><b>Borde:</b> cheddar rallado sobre el borde</p>':''}${R[cur][5]?'<p><b>Masa:</b> Gluten Free (base de cartón redondo que sobresale 1–2 dedos)</p>':''}<ul>${l}</ul></div>`}
+function pos(e){let r=$('pz').getBoundingClientRect();return[(e.clientX-r.left)/r.width*100,(e.clientY-r.top)/r.height*100]}
+function clampXY(x,y,R){let dx=x-50,dy=y-50,d=Math.hypot(dx,dy);if(d>R){x=50+dx/d*R;y=50+dy/d*R}return[x,y]}
+function ghost(e){let h=document.getElementById('gh');if(!h)return;if(!e||!sel){h.innerHTML='';return}let[x,y]=clampXY(...pos(e),37);h.innerHTML=`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})">${TS[sel]}</g>`}
+function clk(e){if(!sel){msg('Los ingredientes se añaden desde la lista de abajo.');return}let[x,y]=clampXY(...pos(e),37);
+for(let it=0;it<4;it++)S.tops.forEach(q=>{if(q.n!=sel)return;let dx=x-q.x,dy=y-q.y,d=Math.hypot(dx,dy);if(d<10.8&&d>.01){let f=(10.8-d)/2/d;x+=dx*f;y+=dy*f}});
+[x,y]=clampXY(x,y,38);let id=++AID;S.tops.push({n:sel,x,y,r:Math.random()*360|0,k:.95+Math.random()*.1,u:id});S.log.push({id,n:sel});msg('');draw()}
+function addHand(n,c0){let id=++AID,c=c0||HF[n],all=S.tops;for(let i=0;i<c;i++){let best=null,bd=-1;for(let k=0;k<14;k++){let a=Math.random()*6.283,r=Math.sqrt(Math.random())*37,x=50+Math.cos(a)*r,y=50+Math.sin(a)*r,d=1e9;for(const q of all){let dd=(q.x-x)**2+(q.y-y)**2;if(dd<d)d=dd}if(d>bd){bd=d;best={x,y}}}
+all.push({n,x:best.x,y:best.y,r:Math.random()*360|0,k:.9+Math.random()*.25,u:id})}S.log.push({id,n});if(c0)msg(`+${c0} uds. de ${n}`);else{S.hf[n]=(S.hf[n]||0)+1;msg(GL[n]?`+${GL[n]} (${n})`:`+1 puñado de ${n} (35 g)`)}draw()}
+function undo(){let a=S.log.pop();if(!a)return;S.tops=S.tops.filter(p=>p.u!=a.id);if(!SL.has(a.n))S.hf[a.n]--;draw()}function reset(){fresh()}
+function bake(){$('bp').innerHTML=pizzaSVG(S);$('bp').style.filter='';ticks=0;S.bake=0;$('bg').disabled=true;$('bx').disabled=false;$('bl').textContent='Horneando…';
+let w=$('p2').querySelector('.belt').clientWidth-$('bp').offsetWidth-30;clearInterval(tint);tint=setInterval(()=>{ticks++;let p=ticks/100;$('bp').style.left=(10+w*Math.min(p,1))+'px';$('bb').style.width=Math.min(p,1)*100+'%';
+$('bp').style.filter=`brightness(${1-p*.45}) sepia(${p*.5})`;if(p>=1)pull()},100)}
+function pull(){clearInterval(tint);let p=ticks/100;S.bake=!ticks?0:p<.55?1:p<=.8?2:3;$('bl').textContent=['Cruda','Poco hecha 🥶 (la sacaste demasiado pronto)','Cocción perfecta ✅','Quemada 🔥'][S.bake];$('bg').disabled=false;$('bx').disabled=true;setTimeout(()=>tab(3),900)}
+function cutDraw(){$('pc').innerHTML=pizzaSVG(S,{bk:S.bake,cuts:S.cuts})}
+function cut(n){S.cuts=n;cutDraw()}
+function grade(){if(PR&&PR.done)return;let[s,x,ch,t,rm]=R[cur],pts=100,lg=[];const bad=(m,v)=>{pts-=v;lg.push('❌ '+m)},ok=m=>lg.push('✔️ '+m);
+(S.dough=='Gluten Free')==!!R[cur][5]?ok('Masa correcta'):bad(R[cur][5]?'Debe ser masa Gluten Free':'La masa Gluten Free no corresponde',20);S.sauce==s?ok('Salsa base correcta'):bad(`Salsa base errónea. Exigida: ${s}`,25);
+(S.extra||'')==x?(x&&ok('Salsa final correcta')):bad(x?`Falta la salsa “${x}”`:`Salsa por encima no requerida (${S.extra})`,10);
+S.cheese==ch[0]?ok('Queso base correcto'):bad(`Queso base incorrecto. Exigido: ${ch[0]}`,20);
+(rm?1:0)==S.rim?(rm&&ok('Cheddar rallado en el borde')):bad(rm?'Falta el cheddar rallado sobre el borde':'Cheddar en el borde no requerido',10);
+let req={...t};ch.slice(1).forEach(q=>req[q]=1);const cnt=k=>SL.has(k)?S.tops.filter(p=>p.n==k).length:(S.hf[k]||0);
+Object.keys(req).forEach(k=>{let r=req[k],c=cnt(k);if(!c)bad('Ingrediente ausente: '+k,20);else if(SL.has(k)?Math.abs(c-r)>Math.max(2,r*.2):c!=r)bad(`${k}: esperado ${fmt(k,r)}, puesto ${fmt(k,c)}`,SL.has(k)?8:10);else ok(`${k}: ${fmt(k,c)}`)});
+[...new Set([...Object.keys(S.hf),'Pepperoni','York'])].forEach(k=>{if(!req[k]&&cnt(k)>0)bad('Ingrediente ajeno a la receta: '+k,15)});
+S.bake==2?ok('Cocción perfecta'):S.bake==0?bad('Pizza sin hornear',40):S.bake==1?bad('Pizza poco hecha',25):bad('Pizza quemada',25);
+S.cuts<4?bad('Faltan los cortes reglamentarios',15):ok(S.cuts+' porciones');
+pts=Math.max(0,pts);$('en').textContent='Resultado: '+cur;$('sc').textContent=pts+'%';$('sc').style.color=pts>=75?'#22c55e':'#ef4444';$('lg').innerHTML=lg.map(l=>`<div>${l}</div>`).join('');
+if(PR){PR.res[PR.n]={n:cur,p:pts};$('nx').textContent=PR.n>=4?'Ver resultado final 🏁':'Siguiente pizza ➡️';return}
+$('nx').textContent='Siguiente pedido ➡️';if(pts>=75){sc+=pts;if(sc>lv*800)lv++;rep=rep.filter(v=>v!=cur)}else if(!rep.includes(cur))rep.push(cur);stats()}
+stats();
+</script></body></html>
